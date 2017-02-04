@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/photos" android:title="@string/photos" android:icon="@drawable/account"/>
+    <item android:id="@+id/map" android:title="@string/map" android:icon="@drawable/earth"/>
+</menu>

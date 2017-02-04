@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.testapptwo.utils.android.views.ForegroundRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/comment_list_item_background"
+        app:foreground="@drawable/comment_list_item_foreground"
+        android:layout_marginLeft="@dimen/comment_list_item_horizontal_margin"
+        android:layout_marginRight="@dimen/comment_list_item_horizontal_margin"
+        android:layout_marginTop="@dimen/comment_list_item_vertical_margin"
+        android:layout_marginBottom="@dimen/comment_list_item_vertical_margin">
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/comment_text_size"
+            android:layout_marginLeft="@dimen/comment_content_padding"
+            android:layout_marginStart="@dimen/comment_content_padding"
+            android:padding="@dimen/default_text_padding"
+            android:gravity="start"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/comment_text_size"
+            android:padding="@dimen/default_text_padding"
+            android:gravity="end"
+            android:layout_below="@id/tv_text"/>
+
+    </com.testapptwo.utils.android.views.ForegroundRelativeLayout>
+
+</FrameLayout>

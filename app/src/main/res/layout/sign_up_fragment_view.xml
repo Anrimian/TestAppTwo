@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_horizontal_margin"
+        android:layout_gravity="center">
+
+        <EditText
+            android:id="@+id/et_login"
+            android:imeOptions="actionNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/edit_text_margin"
+            android:hint="@string/login"/>
+
+        <EditText
+            android:id="@+id/et_password"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:imeOptions="actionNext"
+            android:layout_margin="@dimen/edit_text_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_login"/>
+
+        <EditText
+            android:id="@+id/repeat_password"
+            android:hint="@string/repeat_password"
+            android:inputType="textPassword"
+            android:imeOptions="actionDone"
+            android:layout_margin="@dimen/edit_text_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_password"/>
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:text="@string/register_now"
+            android:background="?attr/colorPrimary"
+            android:textColor="?android:textColorPrimaryInverse"
+            android:layout_margin="@dimen/edit_text_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/repeat_password"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_margin="@dimen/edit_text_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/btn_submit"/>
+
+        <TextView
+            android:id="@+id/tv_error"
+            android:layout_margin="@dimen/edit_text_margin"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="@dimen/default_text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/btn_submit"
+            android:gravity="center_horizontal"/>
+    </RelativeLayout>
+</ScrollView>
