@@ -1,6 +1,5 @@
 package com.testapptwo.features.main.photos.comments;
 
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.testapptwo.api.ApiWrapper;
@@ -9,12 +8,12 @@ import com.testapptwo.api.data.CommentInfo;
 import com.testapptwo.api.response.ResponseInfo;
 import com.testapptwo.database.rx.CommentsDaoRxWrapper;
 import com.testapptwo.features.AppExecutors;
-import com.testapptwo.features.Preferences;
 import com.testapptwo.features.main.photos.state.ModelObserver;
 import com.testapptwo.features.main.photos.state.State;
 import com.testapptwo.features.main.photos.state.StateObservable;
 import com.testapptwo.features.user.UserModel;
 import com.testapptwo.utils.android.views.recyclerview.ListPosition;
+import com.testapptwo.utils.android.views.recyclerview.endlesslist.EndlessListUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +27,7 @@ import rx.schedulers.Schedulers;
 
 public class CommentsModel {
 
+    private static final int PAGE_SIZE = 20;
     private static final int DEFAULT_PAGE_NUMBER = 0;
 
     private ListPosition currentPosition;
@@ -37,7 +37,6 @@ public class CommentsModel {
 
     private String errorMessage;
     private boolean refreshing;
-    private int loadedPages = DEFAULT_PAGE_NUMBER;
 
     private final List<CommentInfo> commentsList = new ArrayList<>();
 
@@ -67,7 +66,7 @@ public class CommentsModel {
 
     public void startLoading(boolean refresh) {
         showState(State.PROGRESS);
-        int page = this.loadedPages;
+        int page = EndlessListUtils.getNextPage(commentsList, PAGE_SIZE);
         if (refresh) {
             page = 0;
             refreshing = true;
@@ -91,7 +90,6 @@ public class CommentsModel {
                     if (commentsList.isEmpty()) {
                         showState(State.END);
                     } else {
-                        loadedPages++;
                         if (page == DEFAULT_PAGE_NUMBER) {
                             startLoading(false);
                         } else {
@@ -122,7 +120,6 @@ public class CommentsModel {
     public void deleteListData() {
         CommentsDaoRxWrapper.deleteComments(imageId);
         commentsList.clear();
-        loadedPages = DEFAULT_PAGE_NUMBER;
     }
 
     public void addComment(CommentInfo commentInfo) {
@@ -156,14 +153,9 @@ public class CommentsModel {
         stateObservable.showState(state);
     }
 
-    private static final int PAGE_SIZE = 20;
 
-    private int getPage() {
-        int size = commentsList.size();
-        return size / PAGE_SIZE;
-    }
 
-    public void registerStateObserver(ModelObserver stateObserver) {
+   public void registerStateObserver(ModelObserver stateObserver) {
         state.showState(stateObserver);
         stateObservable.registerObserver(stateObserver);
     }
@@ -198,17 +190,10 @@ public class CommentsModel {
         return errorMessage;
     }
 
-    private static final String COMMENTS_LIST_PAGE = "comment_list_page_";
-
     public void saveListValues() {
-        SharedPreferences.Editor editor = Preferences.get().edit();
-        editor.putInt(COMMENTS_LIST_PAGE + imageId, loadedPages);
-        editor.apply();
     }
 
     public void loadListValues() {
-        SharedPreferences pref = Preferences.get();
-        loadedPages = pref.getInt(COMMENTS_LIST_PAGE + imageId, 0);
     }
 
 
