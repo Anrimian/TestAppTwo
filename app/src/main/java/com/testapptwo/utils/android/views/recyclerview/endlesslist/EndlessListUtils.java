@@ -14,6 +14,10 @@ public class EndlessListUtils {
             return 0;
         }
         int pages = size / pageSize;
+        int lastPageSize = size % pageSize;
+        if (lastPageSize == 0) {
+            return pages;
+        }
         return ++pages;
     }
 }
